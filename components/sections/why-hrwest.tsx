@@ -9,232 +9,233 @@ import ScrollStack, { ScrollStackItem } from '@/components/ui/ScrollStack';
    Card data
    ───────────────────────────────────────────── */
 const cards = [
-    {
-        id: 'value',
-        number: '01',
-        total: '05',
-        headline: 'Enjoy the Best HR Event Value',
-        body: 'Pay hundreds or thousands less than most high-quality events. World-class content at a price that respects your budget — no inflated speaker fees passed on to you.',
-        image: '/images/scroll-card-value.png',
-        imageAlt: 'Conference hall with attendees seated at round tables in purple-toned lighting',
-        accentColor: '#8b5cf6',
-    },
-    {
-        id: 'peers',
-        number: '02',
-        total: '05',
-        headline: 'Engage With Peers',
-        body: 'Make new HR friends and exchange ideas during intimate roundtable sessions. Connect with people who face the same challenges you do — real conversations, real solutions.',
-        image: '/images/scroll-card-peers.png',
-        imageAlt: 'Diverse HR professionals engaged in roundtable discussion',
-        accentColor: '#a78bfa',
-    },
-    {
-        id: 'experts',
-        number: '03',
-        total: '05',
-        headline: 'Learn From Real Experts',
-        body: 'Take home HR game plans and actionable tips to thrive in 2026 and beyond. Every speaker has lived these challenges — no theory, just field-tested insight you can apply on Monday.',
-        image: '/images/scroll-card-experts.png',
-        imageAlt: 'Keynote speaker presenting on stage with purple lighting',
-        accentColor: '#c084fc',
-    },
-    {
-        id: 'clarity',
-        number: '04',
-        total: '05',
-        headline: 'Get Clarity on Your Future',
-        body: 'Discover key steps to take on critical issues like AI and your career trajectory. Leave with a clear roadmap — not more uncertainty — from sessions built for the decisions you face right now.',
-        image: '/images/scroll-card-clarity.png',
-        imageAlt: 'HR professional viewing glowing digital career path display',
-        accentColor: '#818cf8',
-    },
-    {
-        id: 'experiences',
-        number: '05',
-        total: '05',
-        headline: 'Enjoy Special Experiences',
-        body: 'From contests to connecting with HR friends, this is an event you\'ll love. The memories you make here — and the people you meet — will last long after the conference ends.',
-        image: '/images/scroll-card-experiences.png',
-        imageAlt: 'HR conference reception with professionals networking and celebrating',
-        accentColor: '#e879f9',
-    },
+  {
+    id: 'value',
+    number: '01',
+    total: '05',
+    headline: 'Enjoy the Best HR Event Value',
+    body: 'Pay hundreds or thousands less than most high-quality events. World-class content at a price that respects your budget — no inflated speaker fees passed on to you.',
+    image: '/images/scroll-card-value.png',
+    imageAlt: 'Conference hall with attendees seated at round tables in purple-toned lighting',
+    accentColor: '#8b5cf6',
+  },
+  {
+    id: 'peers',
+    number: '02',
+    total: '05',
+    headline: 'Engage With Peers',
+    body: 'Make new HR friends and exchange ideas during intimate roundtable sessions. Connect with people who face the same challenges you do — real conversations, real solutions.',
+    image: '/images/scroll-card-peers.png',
+    imageAlt: 'Diverse HR professionals engaged in roundtable discussion',
+    accentColor: '#a78bfa',
+  },
+  {
+    id: 'experts',
+    number: '03',
+    total: '05',
+    headline: 'Learn From Real Experts',
+    body: 'Take home HR game plans and actionable tips to thrive in 2026 and beyond. Every speaker has lived these challenges — no theory, just field-tested insight you can apply on Monday.',
+    image: '/images/scroll-card-experts.png',
+    imageAlt: 'Keynote speaker presenting on stage with purple lighting',
+    accentColor: '#c084fc',
+  },
+  {
+    id: 'clarity',
+    number: '04',
+    total: '05',
+    headline: 'Get Clarity on Your Future',
+    body: 'Discover key steps to take on critical issues like AI and your career trajectory. Leave with a clear roadmap — not more uncertainty — from sessions built for the decisions you face right now.',
+    image: '/images/scroll-card-clarity.png',
+    imageAlt: 'HR professional viewing glowing digital career path display',
+    accentColor: '#818cf8',
+  },
+  {
+    id: 'experiences',
+    number: '05',
+    total: '05',
+    headline: 'Enjoy Special Experiences',
+    body: 'From contests to connecting with HR friends, this is an event you\'ll love. The memories you make here — and the people you meet — will last long after the conference ends.',
+    image: '/images/scroll-card-experiences.png',
+    imageAlt: 'HR conference reception with professionals networking and celebrating',
+    accentColor: '#e879f9',
+  },
 ] as const;
 
 /* ─────────────────────────────────────────────
    Section Header
    ───────────────────────────────────────────── */
 function SectionHeader() {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mb-20 max-w-4xl px-6 text-center"
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      className="mx-auto mb-20 max-w-4xl px-6 text-center"
+    >
+      {/* Eyebrow label */}
+      <span
+        className="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-300"
+      >
+        <span className="h-1.5 w-1.5 rounded-full bg-violet-400 animate-pulse" />
+        Why HRWest
+      </span>
+
+      {/* Main title */}
+      <h2
+        className="mt-4 text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+        style={{ fontFamily: 'Outfit, sans-serif' }}
+      >
+        The Event That Brings the{' '}
+        <span
+          className="bg-clip-text text-transparent"
+          style={{
+            backgroundImage: 'linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #c084fc 100%)',
+          }}
         >
-            {/* Eyebrow label */}
-            <span
-                className="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-300"
-            >
-                <span className="h-1.5 w-1.5 rounded-full bg-violet-400 animate-pulse" />
-                Why HRWest
-            </span>
+          HR Community
+        </span>{' '}
+        Together
+      </h2>
 
-            {/* Main title */}
-            <h2
-                className="mt-4 text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
-                style={{ fontFamily: 'Outfit, sans-serif' }}
-            >
-                The Event That Brings the{' '}
-                <span
-                    className="bg-clip-text text-transparent"
-                    style={{
-                        backgroundImage: 'linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #c084fc 100%)',
-                    }}
-                >
-                    HR Community
-                </span>{' '}
-                Together
-            </h2>
+      {/* Subtitle */}
+      <p
+        className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-white/55 sm:text-lg md:text-xl"
+        style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.7' }}
+      >
+        Other conferences charge premium prices for celebrity keynotes with little relevance to HR.
+        HRWest delivers practical, real-world insights from HR professionals you can actually learn
+        from — without the inflated price tag.
+      </p>
 
-            {/* Subtitle */}
-            <p
-                className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-white/55 sm:text-lg md:text-xl"
-                style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.7' }}
-            >
-                Other conferences charge premium prices for celebrity keynotes with little relevance to HR.
-                HRWest delivers practical, real-world insights from HR professionals you can actually learn
-                from — without the inflated price tag.
-            </p>
-
-            {/* Decorative rule */}
-            <div className="mx-auto mt-10 h-px w-24 bg-gradient-to-r from-transparent via-violet-500/60 to-transparent" />
-        </motion.div>
-    );
+      {/* Decorative rule */}
+      <div className="mx-auto mt-10 h-px w-24 bg-gradient-to-r from-transparent via-violet-500/60 to-transparent" />
+    </motion.div>
+  );
 }
 
 /* ─────────────────────────────────────────────
    Individual Card Content
    ───────────────────────────────────────────── */
 interface CardContentProps {
-    card: (typeof cards)[number];
-    index: number;
+  card: (typeof cards)[number];
+  index: number;
 }
 
 function CardContent({ card, index }: CardContentProps) {
-    return (
-        <div className="why-hrwest-card-inner">
-            {/* ── Left: Content panel ── */}
-            <div className="why-hrwest-content-panel">
-                {/* Glass inner surface */}
-                <div className="why-hrwest-glass-panel">
-                    {/* Number indicator */}
-                    <div className="why-hrwest-number-row">
-                        <span
-                            className="why-hrwest-number-current"
-                            style={{ color: card.accentColor }}
-                        >
-                            {card.number}
-                        </span>
-                        <span className="why-hrwest-number-sep">/</span>
-                        <span className="why-hrwest-number-total">{card.total}</span>
-                    </div>
+  return (
+    <div className="why-hrwest-card-inner">
+      {/* ── Left: Content panel ── */}
+      <div className="why-hrwest-content-panel">
+        {/* Glass inner surface */}
+        <div className="why-hrwest-glass-panel">
+          {/* Number indicator */}
+          <div className="why-hrwest-number-row">
+            <span
+              className="why-hrwest-number-current"
+              style={{ color: card.accentColor }}
+            >
+              {card.number}
+            </span>
+            <span className="why-hrwest-number-sep">/</span>
+            <span className="why-hrwest-number-total">{card.total}</span>
+          </div>
 
-                    {/* Headline */}
-                    <h3
-                        className="why-hrwest-headline"
-                        style={{ fontFamily: 'Outfit, sans-serif' }}
-                    >
-                        {card.headline}
-                    </h3>
+          {/* Headline */}
+          <h3
+            className="why-hrwest-headline"
+            style={{ fontFamily: 'Outfit, sans-serif' }}
+          >
+            {card.headline}
+          </h3>
 
-                    {/* Body */}
-                    <p
-                        className="why-hrwest-body"
-                        style={{ fontFamily: 'Inter, sans-serif' }}
-                    >
-                        {card.body}
-                    </p>
+          {/* Body */}
+          <p
+            className="why-hrwest-body"
+            style={{ fontFamily: 'Inter, sans-serif' }}
+          >
+            {card.body}
+          </p>
 
-                    {/* Accent line */}
-                    <div
-                        className="why-hrwest-accent-line"
-                        style={{ backgroundColor: card.accentColor }}
-                    />
-                </div>
-            </div>
-
-            {/* ── Right: Image panel ── */}
-            <div className="why-hrwest-image-panel">
-                <div className="why-hrwest-image-wrapper">
-                    <Image
-                        src={card.image}
-                        alt={card.imageAlt}
-                        fill
-                        className="why-hrwest-image"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        priority={index === 0}
-                    />
-                    {/* Subtle dark overlay for text legibility when image is visible */}
-                    <div
-                        className="why-hrwest-image-overlay"
-                        style={{
-                            background: `linear-gradient(135deg, rgba(6,0,16,0.45) 0%, transparent 60%)`,
-                        }}
-                    />
-                </div>
-            </div>
+          {/* Accent line */}
+          <div
+            className="why-hrwest-accent-line"
+            style={{ backgroundColor: card.accentColor }}
+          />
         </div>
-    );
+      </div>
+
+      {/* ── Right: Image panel ── */}
+      <div className="why-hrwest-image-panel">
+        <div className="why-hrwest-image-wrapper">
+          <Image
+            src={card.image}
+            alt={card.imageAlt}
+            fill
+            className="why-hrwest-image"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority={index === 0}
+          />
+          {/* Subtle dark overlay for text legibility when image is visible */}
+          <div
+            className="why-hrwest-image-overlay"
+            style={{
+              background: `linear-gradient(135deg, rgba(6,0,16,0.45) 0%, transparent 60%)`,
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 /* ─────────────────────────────────────────────
    Why HRWest Section
    ───────────────────────────────────────────── */
 export function WhyHRWest() {
-    return (
-        <section
-            id="why-hrwest"
-            className="why-hrwest-section"
-        >
-            {/* Radial ambient glow behind the section */}
-            <div className="why-hrwest-bg-glow" aria-hidden="true" />
+  return (
+    <section
+      id="why-hrwest"
+      className="why-hrwest-section"
+    >
+      {/* Radial ambient glow behind the section */}
+      <div className="why-hrwest-bg-glow" aria-hidden="true" />
 
-            {/* Content wrapper — constrains width */}
-            <div className="why-hrwest-container">
-                {/* Section header */}
-                <SectionHeader />
+      {/* Content wrapper — constrains width */}
+      <div className="why-hrwest-container">
+        {/* Section header */}
+        <SectionHeader />
 
-                {/* ScrollStack */}
-                <div className="why-hrwest-stack-wrapper">
-                    <ScrollStack
-                        itemDistance={200}
-                        itemStackDistance={28}
-                        stackPosition="18%"
-                        scaleEndPosition="10%"
-                        baseScale={0.88}
-                        itemScale={0.025}
-                        blurAmount={1.5}
-                        className="why-hrwest-scroll-stack"
-                    >
-                        {cards.map((card, i) => (
-                            <ScrollStackItem
-                                key={card.id}
-                                itemClassName="why-hrwest-card"
-                            >
-                                <CardContent card={card} index={i} />
-                            </ScrollStackItem>
-                        ))}
-                    </ScrollStack>
-                </div>
-            </div>
+        {/* ScrollStack */}
+        <div className="why-hrwest-stack-wrapper">
+          <ScrollStack
+            itemDistance={200}
+            itemStackDistance={28}
+            stackPosition="18%"
+            scaleEndPosition="10%"
+            baseScale={0.88}
+            itemScale={0.025}
+            blurAmount={1.5}
+            useWindowScroll={true}
+            className="why-hrwest-scroll-stack"
+          >
+            {cards.map((card, i) => (
+              <ScrollStackItem
+                key={card.id}
+                itemClassName="why-hrwest-card"
+              >
+                <CardContent card={card} index={i} />
+              </ScrollStackItem>
+            ))}
+          </ScrollStack>
+        </div>
+      </div>
 
-            {/* Bottom fade to continue page */}
-            <div className="why-hrwest-bottom-fade" aria-hidden="true" />
+      {/* Bottom fade to continue page */}
+      <div className="why-hrwest-bottom-fade" aria-hidden="true" />
 
-            {/* Component-scoped styles */}
-            <style>{`
+      {/* Component-scoped styles */}
+      <style>{`
         /* ── Section shell ── */
         .why-hrwest-section {
           position: relative;
@@ -260,17 +261,17 @@ export function WhyHRWest() {
         /* ── Stack wrapper ── */
         .why-hrwest-stack-wrapper {
           width: 100%;
-          height: 85vh;
+          height: auto;
           min-height: 560px;
         }
 
         .why-hrwest-scroll-stack {
-          height: 100%;
+          height: auto;
         }
 
         /* Override default inner padding to fit within the section's container */
         .why-hrwest-scroll-stack .scroll-stack-inner {
-          padding: 10vh 3rem 60rem;
+          padding: 10vh 3rem 15rem;
         }
 
         /* ── Card shell ── */
@@ -418,11 +419,11 @@ export function WhyHRWest() {
           }
 
           .why-hrwest-scroll-stack {
-            height: 80vh;
+            height: auto;
           }
 
           .why-hrwest-scroll-stack .scroll-stack-inner {
-            padding: 8vh 1.5rem 50rem;
+            padding: 8vh 1.5rem 10rem;
           }
 
           .why-hrwest-card {
@@ -488,6 +489,6 @@ export function WhyHRWest() {
           }
         }
       `}</style>
-        </section>
-    );
+    </section>
+  );
 }
