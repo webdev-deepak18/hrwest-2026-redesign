@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, CalendarDays, Star, ArrowRight, ExternalLink } from 'lucide-react';
 import type { Variants } from 'framer-motion';
@@ -278,7 +279,6 @@ export function Footer() {
                                 (e.currentTarget as HTMLElement).style.boxShadow = '0 0 28px rgba(139, 92, 246, 0.45)';
                             }}
                         >
-                            <Star className="h-4 w-4" />
                             Register Now
                             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                         </Link>
@@ -298,15 +298,24 @@ export function Footer() {
 
             {/* ── LEGAL ROW ── */}
             <div className="mx-auto max-w-7xl px-6 lg:px-10 py-6">
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
 
-                    {/* Copyright */}
-                    <p
-                        className="text-xs text-zinc-500 text-center sm:text-left"
-                        style={{ fontFamily: '"Inter", sans-serif' }}
-                    >
-                        © 2026 HRWest Conference. All rights reserved.
-                    </p>
+                    {/* Logo & Copyright */}
+                    <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center sm:text-left">
+                        <Image
+                            src="/logos/hrwest_logo_white.png"
+                            alt="HRWest 2026 Logo"
+                            width={56}
+                            height={56}
+                            className="object-contain opacity-40 transition-opacity duration-300 hover:opacity-100"
+                        />
+                        <p
+                            className="text-xs text-zinc-500"
+                            style={{ fontFamily: '"Inter", sans-serif' }}
+                        >
+                            © 2026 HRWest Conference. All rights reserved.
+                        </p>
+                    </div>
 
                     {/* Legal links + HR.com Home */}
                     <div className="flex items-center gap-6 flex-wrap justify-center">

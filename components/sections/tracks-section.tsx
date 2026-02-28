@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { BrandMotif } from '@/components/ui/brand-motif';
 
 /* ─────────────────────────────────────────────
    Types
@@ -13,6 +14,7 @@ interface Track {
   modalIntro: string;
   bulletPoints: string[];
   image: string;
+  accentColor: string;
 }
 
 /* ─────────────────────────────────────────────
@@ -21,7 +23,7 @@ interface Track {
 const TRACKS: Track[] = [
   {
     id: 'hr-tech',
-    number: '01',
+    number: 'Track 01',
     title: 'HR Tech',
     tileDescription: 'Explore the technologies transforming modern HR.',
     modalIntro:
@@ -34,10 +36,11 @@ const TRACKS: Track[] = [
       'Improving day-to-day HR performance',
     ],
     image: '/tracks/track-hr-tech.png',
+    accentColor: 'var(--brand-red)',
   },
   {
     id: 'hr-strategy',
-    number: '02',
+    number: 'Track 02',
     title: 'HR Strategy / AI',
     tileDescription: 'Build smarter HR strategies powered by AI and data.',
     modalIntro:
@@ -50,10 +53,11 @@ const TRACKS: Track[] = [
       'Future-proofing your HR strategy',
     ],
     image: '/tracks/track-hr-strategy.png',
+    accentColor: 'var(--brand-cyan)',
   },
   {
     id: 'talent',
-    number: '03',
+    number: 'Track 03',
     title: 'Talent',
     tileDescription: 'Master talent acquisition, retention, and engagement.',
     modalIntro:
@@ -66,10 +70,11 @@ const TRACKS: Track[] = [
       'HR career growth and development',
     ],
     image: '/tracks/track-talent.png',
+    accentColor: 'var(--brand-green)',
   },
   {
     id: 'legal-compliance',
-    number: '04',
+    number: 'Track 04',
     title: 'Legal and Compliance',
     tileDescription: 'Stay compliant in a rapidly evolving regulatory landscape.',
     modalIntro:
@@ -82,10 +87,11 @@ const TRACKS: Track[] = [
       'Managing legal risk in HR',
     ],
     image: '/tracks/track-legal-compliance.png',
+    accentColor: 'var(--brand-yellow)',
   },
   {
     id: 'health-wellness',
-    number: '05',
+    number: 'Track 05',
     title: 'Health, Wellness, Benefits',
     tileDescription: "Design modern benefits that support today's workforce.",
     modalIntro:
@@ -98,10 +104,11 @@ const TRACKS: Track[] = [
       'Employee well-being strategies',
     ],
     image: '/tracks/track-health-wellness.png',
+    accentColor: 'var(--brand-red)',
   },
   {
     id: 'leadership',
-    number: '06',
+    number: 'Track 06',
     title: 'Leadership',
     tileDescription: 'Develop leaders who drive results and culture.',
     modalIntro:
@@ -114,6 +121,7 @@ const TRACKS: Track[] = [
       "HR's role in leadership evolution",
     ],
     image: '/tracks/track-leadership.png',
+    accentColor: 'var(--brand-cyan)',
   },
 ];
 
@@ -171,10 +179,19 @@ function TrackModal({ trackIndex, onClose, onPrev, onNext }: TrackModalProps) {
     return () => document.removeEventListener('keydown', handler);
   });
 
-  // Lock body scroll
+  // Lock body scroll (handling both body and html for broad compatibility like Lenis)
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
   }, [isOpen]);
 
   const handleClose = useCallback(() => {
@@ -226,36 +243,41 @@ function TrackModal({ trackIndex, onClose, onPrev, onNext }: TrackModalProps) {
           </svg>
         </button>
 
-        {/* Header image strip — swaps with cross-fade */}
-        <div
-          key={`img-${contentKey}`}
-          className="ts-modal-image"
-          style={{ backgroundImage: `url(${track.image})` }}
-          data-fading={contentFading}
-          aria-hidden="true"
-        >
-          <div className="ts-modal-image-overlay" />
-          <div className="ts-modal-track-number">{track.number} / 0{TRACKS.length}</div>
+        {/* Split Container for Desktop */}
+        <div className="ts-modal-split">
+          {/* Content (Left on Desktop) — cross-fades on navigation */}
+          <div
+            key={`body-${contentKey}`}
+            className="ts-modal-body"
+            data-fading={contentFading}
+          >
+            <h2 className="ts-modal-title">{track.title}</h2>
+            <p className="ts-modal-intro">{track.modalIntro}</p>
+
+            <ul className="ts-modal-bullets" role="list">
+              {track.bulletPoints.map((point) => (
+                <li key={point} className="ts-modal-bullet">
+                  <span className="ts-bullet-dot" aria-hidden="true" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Header image (Right on Desktop) — swaps with cross-fade */}
+          <div
+            key={`img-${contentKey}`}
+            className="ts-modal-image"
+            style={{ backgroundImage: `url(${track.image})` }}
+            data-fading={contentFading}
+            aria-hidden="true"
+          >
+            <div className="ts-modal-image-overlay" />
+            <div className="ts-modal-track-number" style={{ color: track.accentColor }}>{track.number} / 0{TRACKS.length}</div>
+          </div>
         </div>
 
-        {/* Content — cross-fades on navigation */}
-        <div
-          key={`body-${contentKey}`}
-          className="ts-modal-body"
-          data-fading={contentFading}
-        >
-          <h2 className="ts-modal-title">{track.title}</h2>
-          <p className="ts-modal-intro">{track.modalIntro}</p>
 
-          <ul className="ts-modal-bullets" role="list">
-            {track.bulletPoints.map((point) => (
-              <li key={point} className="ts-modal-bullet">
-                <span className="ts-bullet-dot" aria-hidden="true" />
-                {point}
-              </li>
-            ))}
-          </ul>
-        </div>
 
         {/* Footer nav bar */}
         <div className="ts-modal-footer">
@@ -341,7 +363,7 @@ function TrackTile({ track, onClick }: TrackTileProps) {
 
       {/* Content */}
       <div className="ts-tile-content">
-        <span className="ts-tile-number">{track.number}</span>
+        <span className="ts-tile-number" style={{ color: track.accentColor }}>{track.number}</span>
         <h3 className="ts-tile-title">{track.title}</h3>
         <p className="ts-tile-desc">{track.tileDescription}</p>
         <span className="ts-tile-cta" aria-hidden="true">
@@ -384,6 +406,9 @@ export function TracksSection() {
 
         {/* Section header */}
         <div className="ts-header">
+          <div className="mb-5 flex justify-center">
+            <BrandMotif size={5} gap={8} />
+          </div>
           <p className="ts-eyebrow">The Program</p>
           <h2 className="ts-heading">
             Tracks Covering <span className="ts-heading-accent">ALL</span> the Big HR Issues in 2026
@@ -563,12 +588,21 @@ export function TracksSection() {
         .ts-tile-number {
           font-family: Outfit, sans-serif;
           font-size: 0.65rem;
-          font-weight: 700;
+          font-weight: 800;
           letter-spacing: 0.18em;
           color: #8b5cf6;
           text-transform: uppercase;
-          display: block;
-          margin-bottom: 0.15rem;
+          display: inline-flex;
+          align-items: center;
+          width: fit-content;
+          margin-bottom: 0.4rem;
+          background: rgba(6, 0, 16, 0.5);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          padding: 0.35rem 0.65rem;
+          border-radius: 9999px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .ts-tile-title {
@@ -628,7 +662,7 @@ export function TracksSection() {
         .ts-modal-overlay {
           position: fixed;
           inset: 0;
-          z-index: 9000;
+          z-index: 2147483647;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -696,7 +730,7 @@ export function TracksSection() {
         .ts-modal-panel {
           position: relative;
           width: 100%;
-          max-width: 620px;
+          max-width: 900px;
           background: rgba(15,7,32,0.78);
           backdrop-filter: blur(28px);
           -webkit-backdrop-filter: blur(28px);
@@ -756,11 +790,17 @@ export function TracksSection() {
           outline-offset: 2px;
         }
 
+        /* ─── Desktop Split Layout ─── */
+        .ts-modal-split {
+          display: grid;
+          grid-template-columns: 65% 35%;
+        }
+
         /* ─── Image strip ─── */
         .ts-modal-image {
           position: relative;
           width: 100%;
-          height: 220px;
+          height: 100%;
           background-size: cover;
           background-position: center;
           flex-shrink: 0;
@@ -787,10 +827,20 @@ export function TracksSection() {
           left: 1.75rem;
           font-family: Outfit, sans-serif;
           font-size: 0.65rem;
-          font-weight: 700;
-          letter-spacing: 0.2em;
+          font-weight: 800;
+          letter-spacing: 0.18em;
           color: #a78bfa;
           text-transform: uppercase;
+          display: inline-flex;
+          align-items: center;
+          width: fit-content;
+          background: rgba(6, 0, 16, 0.5);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          padding: 0.35rem 0.65rem;
+          border-radius: 9999px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         /* ─── Modal body ─── */
@@ -958,8 +1008,18 @@ export function TracksSection() {
           }
         }
 
-        /* On narrower screens, hide side arrows and rely on footer nav */
         @media (max-width: 860px) {
+          .ts-modal-split {
+            grid-template-columns: 1fr;
+            min-height: auto;
+          }
+
+          /* Order shifting: Image on top for mobile */
+          .ts-modal-image {
+            order: -1;
+            height: 220px;
+          }
+
           .ts-modal-nav {
             display: none;
           }

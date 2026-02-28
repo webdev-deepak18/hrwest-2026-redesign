@@ -6,137 +6,137 @@ import React, { useEffect, useRef, useState } from 'react';
    Metric data — exact values as specified
    ───────────────────────────────────────────── */
 interface Metric {
-    /** Numeric target for the count-up */
-    value: number;
-    /** Symbol that follows the number, e.g. "+" */
-    suffix: string;
-    /** Descriptive label rendered beneath the number */
-    label: string;
-    /** Subtle accent glow hue for this metric */
-    glowColor: string;
+  /** Numeric target for the count-up */
+  value: number;
+  /** Symbol that follows the number, e.g. "+" */
+  suffix: string;
+  /** Descriptive label rendered beneath the number */
+  label: string;
+  /** Subtle accent glow hue for this metric */
+  glowColor: string;
 }
 
 const METRICS: Metric[] = [
-    { value: 700, suffix: '+', label: 'Attendees', glowColor: 'rgba(139,92,246,0.45)' },
-    { value: 100, suffix: '+', label: 'Speakers', glowColor: 'rgba(167,139,250,0.40)' },
-    { value: 10, suffix: '', label: 'Full HR Credits', glowColor: 'rgba(192,132,252,0.38)' },
-    { value: 40, suffix: '+', label: 'Exhibitors', glowColor: 'rgba(224,176,255,0.35)' },
+  { value: 700, suffix: '+', label: 'Attendees', glowColor: 'rgba(139,92,246,0.45)' },
+  { value: 100, suffix: '+', label: 'Speakers', glowColor: 'rgba(167,139,250,0.40)' },
+  { value: 10, suffix: '', label: 'Full HR Credits', glowColor: 'rgba(192,132,252,0.38)' },
+  { value: 40, suffix: '+', label: 'Exhibitors', glowColor: 'rgba(224,176,255,0.35)' },
 ];
 
 /* ─────────────────────────────────────────────
    Count-up hook
    ───────────────────────────────────────────── */
 function useCountUp(target: number, duration = 1600, active = false) {
-    const [count, setCount] = useState(0);
-    const rafRef = useRef<number | null>(null);
+  const [count, setCount] = useState(0);
+  const rafRef = useRef<number | null>(null);
 
-    useEffect(() => {
-        if (!active) return;
+  useEffect(() => {
+    if (!active) {
+      setCount(0);
+      return;
+    }
 
-        const start = performance.now();
-        const tick = (now: number) => {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease-out cubic
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.round(eased * target));
-            if (progress < 1) {
-                rafRef.current = requestAnimationFrame(tick);
-            }
-        };
+    const start = performance.now();
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) {
         rafRef.current = requestAnimationFrame(tick);
-        return () => {
-            if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-        };
-    }, [active, target, duration]);
+      }
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, [active, target, duration]);
 
-    return count;
+  return count;
 }
 
 /* ─────────────────────────────────────────────
    Individual metric item
    ───────────────────────────────────────────── */
 interface MetricItemProps {
-    metric: Metric;
-    index: number;
-    active: boolean;
+  metric: Metric;
+  index: number;
+  active: boolean;
 }
 
 function MetricItem({ metric, index, active }: MetricItemProps) {
-    const count = useCountUp(metric.value, 1500 + index * 120, active);
+  const count = useCountUp(metric.value, 1500 + index * 120, active);
 
-    return (
-        <div className="em-metric-item" style={{ '--glow': metric.glowColor } as React.CSSProperties}>
-            {/* Subtle radial glow behind the number */}
-            <div className="em-metric-glow" aria-hidden="true" />
+  return (
+    <div className="em-metric-item" style={{ '--glow': metric.glowColor } as React.CSSProperties}>
+      {/* Subtle radial glow behind the number */}
+      <div className="em-metric-glow" aria-hidden="true" />
 
-            {/* Number */}
-            <div className="em-metric-number" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                <span className="em-metric-digits">{count}</span>
-                <span className="em-metric-suffix">{metric.suffix}</span>
-            </div>
+      {/* Number */}
+      <div className="em-metric-number" style={{ fontFamily: 'Outfit, sans-serif' }}>
+        <span className="em-metric-digits">{count}</span>
+        <span className="em-metric-suffix">{metric.suffix}</span>
+      </div>
 
-            {/* Hairline divider */}
-            <div className="em-metric-rule" />
+      {/* Hairline divider */}
+      <div className="em-metric-rule" />
 
-            {/* Label */}
-            <p className="em-metric-label" style={{ fontFamily: 'Inter, sans-serif' }}>
-                {metric.label}
-            </p>
-        </div>
-    );
+      {/* Label */}
+      <p className="em-metric-label" style={{ fontFamily: 'Inter, sans-serif' }}>
+        {metric.label}
+      </p>
+    </div>
+  );
 }
 
 /* ─────────────────────────────────────────────
    EventMetrics section
    ───────────────────────────────────────────── */
 export function EventMetrics() {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const [active, setActive] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
 
-    useEffect(() => {
-        const el = sectionRef.current;
-        if (!el) return;
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
 
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setActive(true);
-                    observer.disconnect();
-                }
-            },
-            { threshold: 0.25 },
-        );
-        observer.observe(el);
-        return () => observer.disconnect();
-    }, []);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setActive(entry.isIntersecting);
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
-    return (
-        <section id="event-metrics" ref={sectionRef} className="em-section" aria-label="Event metrics">
-            {/* Background gradient layer */}
-            <div className="em-bg" aria-hidden="true" />
+  return (
+    <section id="event-metrics" ref={sectionRef} className="em-section" aria-label="Event metrics">
+      {/* Background gradient layer */}
+      <div className="em-bg" aria-hidden="true" />
 
-            {/* Horizontal accent line above */}
-            <div className="em-top-line" aria-hidden="true" />
+      {/* Horizontal accent line above */}
+      <div className="em-top-line" aria-hidden="true" />
 
-            {/* Metrics grid */}
-            <div className="em-grid">
-                {METRICS.map((metric, i) => (
-                    <React.Fragment key={metric.label}>
-                        <MetricItem metric={metric} index={i} active={active} />
-                        {/* Vertical separator — hidden after last item */}
-                        {i < METRICS.length - 1 && (
-                            <div className="em-vsep" aria-hidden="true" />
-                        )}
-                    </React.Fragment>
-                ))}
-            </div>
+      {/* Metrics grid */}
+      <div className="em-grid">
+        {METRICS.map((metric, i) => (
+          <React.Fragment key={metric.label}>
+            <MetricItem metric={metric} index={i} active={active} />
+            {/* Vertical separator — hidden after last item */}
+            {i < METRICS.length - 1 && (
+              <div className="em-vsep" aria-hidden="true" />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
 
-            {/* Horizontal accent line below */}
-            <div className="em-bottom-line" aria-hidden="true" />
+      {/* Horizontal accent line below */}
+      <div className="em-bottom-line" aria-hidden="true" />
 
-            {/* Component-scoped styles */}
-            <style>{`
+      {/* Component-scoped styles */}
+      <style>{`
         /* ── Section shell ── */
         .em-section {
           position: relative;
@@ -352,6 +352,6 @@ export function EventMetrics() {
           }
         }
       `}</style>
-        </section>
-    );
+    </section>
+  );
 }

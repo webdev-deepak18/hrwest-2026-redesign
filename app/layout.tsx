@@ -55,7 +55,7 @@ export default function RootLayout({
 
         <SplashCursor />
         <Navbar />
-        <main className="flex-1 relative z-0">{children}</main>
+        <main className="flex-1">{children}</main>
         <GlobalSponsor />
         <Footer />
       </body>

@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ScrollStack, { ScrollStackItem } from '@/components/ui/ScrollStack';
+import { BrandMotif } from '@/components/ui/brand-motif';
 
 /* ─────────────────────────────────────────────
    Card data
@@ -17,7 +18,7 @@ const cards = [
     body: 'Pay hundreds or thousands less than most high-quality events. World-class content at a price that respects your budget — no inflated speaker fees passed on to you.',
     image: '/images/scroll-card-value.png',
     imageAlt: 'Conference hall with attendees seated at round tables in purple-toned lighting',
-    accentColor: '#8b5cf6',
+    accentColor: 'var(--brand-red)',
   },
   {
     id: 'peers',
@@ -27,7 +28,7 @@ const cards = [
     body: 'Make new HR friends and exchange ideas during intimate roundtable sessions. Connect with people who face the same challenges you do — real conversations, real solutions.',
     image: '/images/scroll-card-peers.png',
     imageAlt: 'Diverse HR professionals engaged in roundtable discussion',
-    accentColor: '#a78bfa',
+    accentColor: 'var(--brand-cyan)',
   },
   {
     id: 'experts',
@@ -37,7 +38,7 @@ const cards = [
     body: 'Take home HR game plans and actionable tips to thrive in 2026 and beyond. Every speaker has lived these challenges — no theory, just field-tested insight you can apply on Monday.',
     image: '/images/scroll-card-experts.png',
     imageAlt: 'Keynote speaker presenting on stage with purple lighting',
-    accentColor: '#c084fc',
+    accentColor: 'var(--brand-green)',
   },
   {
     id: 'clarity',
@@ -47,7 +48,7 @@ const cards = [
     body: 'Discover key steps to take on critical issues like AI and your career trajectory. Leave with a clear roadmap — not more uncertainty — from sessions built for the decisions you face right now.',
     image: '/images/scroll-card-clarity.png',
     imageAlt: 'HR professional viewing glowing digital career path display',
-    accentColor: '#818cf8',
+    accentColor: 'var(--brand-yellow)',
   },
   {
     id: 'experiences',
@@ -57,7 +58,7 @@ const cards = [
     body: 'From contests to connecting with HR friends, this is an event you\'ll love. The memories you make here — and the people you meet — will last long after the conference ends.',
     image: '/images/scroll-card-experiences.png',
     imageAlt: 'HR conference reception with professionals networking and celebrating',
-    accentColor: '#e879f9',
+    accentColor: 'var(--brand-red)',
   },
 ] as const;
 
@@ -73,6 +74,10 @@ function SectionHeader() {
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       className="mx-auto mb-20 max-w-4xl px-6 text-center"
     >
+      <div className="mb-6 flex justify-center">
+        <BrandMotif size={5} gap={8} />
+      </div>
+
       {/* Eyebrow label */}
       <span
         className="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-300"
@@ -173,7 +178,7 @@ function CardContent({ card, index }: CardContentProps) {
             alt={card.imageAlt}
             fill
             className="why-hrwest-image"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 768px) 100vw, 45vw"
             priority={index === 0}
           />
           {/* Subtle dark overlay for text legibility when image is visible */}
@@ -277,7 +282,7 @@ export function WhyHRWest() {
         /* ── Card shell ── */
         .why-hrwest-card {
           height: auto !important;
-          min-height: 480px;
+          min-height: 420px;
           background: #0a0118;
           border: 1px solid rgba(139, 92, 246, 0.18);
           box-shadow:
@@ -293,9 +298,9 @@ export function WhyHRWest() {
         /* ── Inner two-column layout ── */
         .why-hrwest-card-inner {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 55% 45%;
           height: 100%;
-          min-height: 480px;
+          min-height: 420px;
         }
 
         /* ── Left: content panel ── */
@@ -327,9 +332,10 @@ export function WhyHRWest() {
 
         .why-hrwest-number-current {
           font-size: 2.25rem;
-          font-weight: 900;
+          font-weight: 500;
           line-height: 1;
           letter-spacing: -0.03em;
+          opacity: 0.6;
         }
 
         .why-hrwest-number-sep {
@@ -360,7 +366,7 @@ export function WhyHRWest() {
           font-size: 0.975rem;
           line-height: 1.75;
           color: rgba(255, 255, 255, 0.55);
-          max-width: 38ch;
+          max-width: 48ch;
         }
 
         /* Accent line */

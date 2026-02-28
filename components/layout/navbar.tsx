@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
     Menu, X, ChevronDown,
@@ -171,7 +172,7 @@ function MegaMenuPanel({ groups }: { groups: MegaGroup[] }) {
             <div
                 className="rounded-2xl border border-purple-500/20 p-6 shadow-2xl"
                 style={{
-                    background: 'rgba(15, 7, 32, 0.75)',
+                    background: 'rgba(6, 0, 16, 0.95)',
                     backdropFilter: 'blur(24px)',
                     WebkitBackdropFilter: 'blur(24px)',
                     boxShadow: '0 8px 40px rgba(139, 92, 246, 0.18), 0 2px 12px rgba(0,0,0,0.5)',
@@ -268,12 +269,18 @@ export function Navbar() {
                                 initial={{ opacity: 0, x: -18 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                                className="flex items-center gap-1.5"
+                                className="flex items-center gap-3"
                             >
-                                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/20 border border-purple-500/30">
-                                    <LayoutGrid className="h-4 w-4 text-purple-400" />
+                                <div className="relative h-10 w-10 overflow-hidden rounded-lg drop-shadow-lg transition-transform duration-300 group-hover:scale-105">
+                                    <Image
+                                        src="/logos/hrwest_logo_white.png"
+                                        alt="HRWest Logo"
+                                        fill
+                                        className="object-contain"
+                                        sizes="40px"
+                                    />
                                 </div>
-                                <span className="text-xl font-black tracking-tight">
+                                <span className="text-xl font-black tracking-tight flex items-baseline">
                                     <span
                                         style={{
                                             background: 'linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #c084fc 100%)',
@@ -284,7 +291,7 @@ export function Navbar() {
                                         HR
                                     </span>
                                     <span className="text-white">West</span>
-                                    <span className="ml-1.5 text-xs font-medium text-zinc-400">2026</span>
+                                    <span className="ml-1.5 text-xs font-semibold text-zinc-400">2026</span>
                                 </span>
                             </motion.div>
                         </Link>
@@ -338,11 +345,24 @@ export function Navbar() {
                             ))}
                         </nav>
 
-                        {/* REGISTER CTA + MOBILE TOGGLE */}
-                        <div className="flex items-center gap-3">
+                        {/* META DATA (Date & Location) + REGISTER CTA + MOBILE TOGGLE */}
+                        <div className="flex items-center gap-5">
+                            {/* Desktop Event Meta */}
+                            <div className="hidden lg:flex items-center gap-4 border-r border-white/10 pr-5">
+                                <div className="flex flex-col items-end">
+                                    <div className="flex items-center gap-1.5 text-zinc-300">
+                                        <CalendarDays className="h-3 w-3 text-purple-400" />
+                                        <span className="text-xs font-medium">June 9–10</span>
+                                    </div>
+                                    <div className="flex items-center gap-1 text-zinc-500 mt-0.5">
+                                        <span className="text-[10px] font-medium tracking-wider uppercase">San Francisco, CA</span>
+                                    </div>
+                                </div>
+                            </div>
+
                             <Link
                                 href="/register"
-                                className="hidden md:inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5"
+                                className="group hidden md:inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5"
                                 style={{
                                     background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
                                     boxShadow: '0 0 20px rgba(139, 92, 246, 0.35)',
@@ -354,8 +374,8 @@ export function Navbar() {
                                     (e.currentTarget as HTMLElement).style.boxShadow = '0 0 20px rgba(139, 92, 246, 0.35)';
                                 }}
                             >
-                                <Star className="h-3.5 w-3.5" />
                                 Register Now
+                                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                             </Link>
 
                             {/* Mobile hamburger */}
@@ -379,19 +399,6 @@ export function Navbar() {
                         </div>
                     </div>
                 </div>
-
-                {/* Active mega menu underline indicator */}
-                <AnimatePresence>
-                    {activeMega && (
-                        <motion.div
-                            key="underline"
-                            initial={{ scaleX: 0, opacity: 0 }}
-                            animate={{ scaleX: 1, opacity: 1 }}
-                            exit={{ scaleX: 0, opacity: 0 }}
-                            className="h-px w-full origin-left bg-gradient-to-r from-purple-500/60 via-violet-400/40 to-transparent"
-                        />
-                    )}
-                </AnimatePresence>
             </header>
 
             {/* ── MOBILE DRAWER ─────────────────────────────────────────────── */}
