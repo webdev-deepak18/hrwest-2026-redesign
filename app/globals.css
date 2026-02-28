@@ -3,74 +3,78 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ============================================================
+   HRWest Design System — React-Bits Inspired Dark Theme
+   Primary palette drawn from react-bits.dev aesthetics:
+   deep purple-black backgrounds, violet accents, white text
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  /* ── Core Backgrounds ── */
+  --background: #060010;
+  --background-secondary: #0a0118;
+  --surface: #0f0720;
+  --surface-hover: #160a2e;
 
-  --card: #ffffff;
-  --card-foreground: #0f172a;
+  /* ── Foreground / Text ── */
+  --foreground: #ffffff;
+  --foreground-muted: #a1a1aa;
+  --foreground-subtle: #71717a;
 
-  --popover: #ffffff;
-  --popover-foreground: #0f172a;
+  /* ── Card / Popover ── */
+  --card: #0f0720;
+  --card-foreground: #ffffff;
+  --popover: #0f0720;
+  --popover-foreground: #ffffff;
 
-  --primary: #2563eb;
+  /* ── Primary Accent — Violet/Purple (react-bits brand) ── */
+  --primary: #8b5cf6;
+  --primary-hover: #7c3aed;
   --primary-foreground: #ffffff;
+  --primary-glow: rgba(139, 92, 246, 0.35);
 
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
+  /* ── Secondary — dark purple ── */
+  --secondary: #1e0d3a;
+  --secondary-foreground: #e2d9f3;
 
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
+  /* ── Muted tones ── */
+  --muted: #1a0a2e;
+  --muted-foreground: #a1a1aa;
 
-  --accent: #38bdf8;
-  --accent-foreground: #0f172a;
+  /* ── Accent — violet-400 ── */
+  --accent: #a78bfa;
+  --accent-foreground: #060010;
 
+  /* ── Glow & Effects ── */
+  --glow: rgba(139, 92, 246, 0.5);
+  --glow-cyan: rgba(167, 139, 250, 0.4);
+
+  /* ── Borders & Inputs ── */
+  --border: #2d1a4a;
+  --border-muted: #1e0d3a;
+  --input: #1a0a2e;
+  --ring: #8b5cf6;
+
+  /* ── Semantic ── */
   --destructive: #ef4444;
-  --destructive-foreground: #f8fafc;
+  --destructive-foreground: #ffffff;
+  --success: #22c55e;
+  --success-foreground: #ffffff;
+  --warning: #f59e0b;
+  --warning-foreground: #060010;
 
-  --success: #10b981;
-  --success-foreground: #f8fafc;
-
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #2563eb;
-
+  /* ── Radius ── */
   --radius: 0.75rem;
+  --radius-sm: 0.375rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ── Spacing scale ── */
+  --space-unit: 4px;
 }
 
-.dark {
-  --background: #020617;
-  --foreground: #f8fafc;
-
-  --card: #020617;
-  --card-foreground: #f8fafc;
-
-  --popover: #020617;
-  --popover-foreground: #f8fafc;
-
-  --primary: #2563eb;
-  --primary-foreground: #ffffff;
-
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-
-  --accent: #38bdf8;
-  --accent-foreground: #020617;
-
-  --destructive: #7f1d1d;
-  --destructive-foreground: #f8fafc;
-
-  --success: #10b981;
-  --success-foreground: #f8fafc;
-
-  --border: #1e293b;
-  --input: #1e293b;
-  --ring: #2563eb;
-}
-
+/* ── Tailwind v4 theme bridge ── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -103,23 +107,117 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-primary-glow: var(--primary-glow);
+  --color-glow: var(--glow);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-full: var(--radius-full);
 
   --font-sans: var(--font-sans);
   --font-heading: var(--font-heading);
 }
 
+/* ── Base layer ── */
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
     font-feature-settings: "rlig" 1, "calt" 1;
+    min-height: 100vh;
   }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading tracking-tight;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), 'Outfit', sans-serif;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    color: var(--foreground);
+  }
+
+  p,
+  li {
+    font-family: var(--font-sans), 'Inter', sans-serif;
+    line-height: 1.7;
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+/* ── Utility classes matching the react-bits aesthetic ── */
+@layer utilities {
+  .text-gradient-primary {
+    background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #c084fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-accent {
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .border-glow {
+    border: 1px solid var(--border);
+    box-shadow: 0 0 20px var(--primary-glow), inset 0 0 20px rgba(139, 92, 246, 0.05);
+  }
+
+  .glass {
+    background: rgba(15, 7, 32, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(139, 92, 246, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 0 30px var(--glow), 0 0 60px var(--primary-glow);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }

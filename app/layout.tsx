@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { GlobalSponsorLogos } from "@/components/layout/global-sponsor-logos";
 import SplashCursor from "@/components/ui/splash-cursor";
+import DarkVeil from "@/components/ui/DarkVeil";
 import "./globals.css";
 
 const inter = Inter({
@@ -27,13 +28,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
         className={`${inter.variable} ${outfit.variable} antialiased min-h-screen bg-background font-sans selection:bg-primary selection:text-primary-foreground flex flex-col`}
       >
+        {/* Fixed DarkVeil WebGL background — visible across all pages */}
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: -10,
+            width: "100%",
+            height: "100%",
+            pointerEvents: "none",
+          }}
+        >
+          <DarkVeil
+            hueShift={0}
+            noiseIntensity={0}
+            scanlineIntensity={0}
+            speed={0.5}
+            scanlineFrequency={0}
+            warpAmount={0}
+          />
+        </div>
+
         <SplashCursor />
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 relative z-0">{children}</main>
         <GlobalSponsorLogos />
         <Footer />
       </body>
