@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { GlobalSponsorLogos } from "@/components/layout/global-sponsor-logos";
+import { GlobalSponsor } from "@/components/layout/global-sponsor";
 import SplashCursor from "@/components/ui/splash-cursor";
 import DarkVeil from "@/components/ui/DarkVeil";
 import "./globals.css";
@@ -56,7 +56,7 @@ export default function RootLayout({
         <SplashCursor />
         <Navbar />
         <main className="flex-1 relative z-0">{children}</main>
-        <GlobalSponsorLogos />
+        <GlobalSponsor />
         <Footer />
       </body>
     </html>
