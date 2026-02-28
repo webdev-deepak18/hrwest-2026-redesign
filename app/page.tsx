@@ -1,5 +1,11 @@
 import { Hero } from '@/components/sections/hero';
+import { WhyHRWest } from '@/components/sections/why-hrwest';
 
 export default function HomePage() {
-  return <Hero />;
+  return (
+    <main>
+      <Hero />
+      <WhyHRWest />
+    </main>
+  );
 }
