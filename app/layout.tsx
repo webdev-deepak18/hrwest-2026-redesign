@@ -3,6 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { GlobalSponsorLogos } from "@/components/layout/global-sponsor-logos";
+import SplashCursor from "@/components/ui/splash-cursor";
 import "./globals.css";
 
 const inter = Inter({
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${outfit.variable} antialiased min-h-screen bg-background font-sans selection:bg-primary selection:text-primary-foreground flex flex-col`}
       >
+        <SplashCursor />
         <Navbar />
         <main className="flex-1">{children}</main>
         <GlobalSponsorLogos />
