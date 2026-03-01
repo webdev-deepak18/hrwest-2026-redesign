@@ -1,10 +1,33 @@
+import * as React from 'react';
+import { PageHeroBanner } from '@/components/ui/page-hero-banner';
+import { ComingSoonPlaceholder } from '@/components/sections/coming-soon-placeholder';
+
 export default function AskEmployerPage() {
     return (
-        <div className="flex flex-col items-center justify-center min-h-[70vh] w-full p-8">
-            <div className="bg-card text-card-foreground shadow-sm border rounded-lg p-12 text-center max-w-2xl w-full">
-                <h1 className="text-4xl font-bold">Get Your Employer to Send You to HRWest</h1>
-                <p className="mt-4 text-muted-foreground">Placeholder content for the wireframe skeleton.</p>
+        <main className="flex flex-col min-h-screen bg-[#060010]">
+            <PageHeroBanner
+                eyebrow="Make Your Case"
+                eyebrowIconName="BookOpen"
+                headline="Get Your Employer to Send You to HRWest"
+                tagline="Helpful materials and information to make your business case"
+                ctaText="Register Now"
+                ctaHref="/register"
+                blendImage="/images/ask_employer_hero.png"
+                blendImageAlt="Professionals discussing opportunities"
+            />
+
+            <div className="flex flex-col">
+                <ComingSoonPlaceholder
+                    title="Business Case Templates"
+                    description="We are preparing downloadable templates and letters to help you effectively communicate the ROI of attending HRWest to your leadership."
+                />
+                <ComingSoonPlaceholder
+                    title="Cost & ROI Breakdown"
+                    description="A detailed financial breakdown and justification guide is currently being finalized to support your request."
+                    icon="hammer"
+                    className="bg-[#0a0118]"
+                />
             </div>
-        </div>
+        </main>
     );
 }

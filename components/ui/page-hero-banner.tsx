@@ -37,11 +37,15 @@ export interface PageHeroBannerProps {
     /** Gradient sub-headline beneath the main title */
     tagline?: string;
     /** Optional short description line beneath the tagline */
-    description?: string;
+    description?: React.ReactNode;
     /** CTA button label */
     ctaText?: string;
     /** CTA button href */
     ctaHref?: string;
+    /** Secondary CTA button label */
+    secondaryCtaText?: string;
+    /** Secondary CTA button href */
+    secondaryCtaHref?: string;
     /**
      * Path to a decorative image placed on the right side.
      * For seamless blending: source image MUST have a pure black background.
@@ -76,6 +80,8 @@ export function PageHeroBanner({
     description,
     ctaText,
     ctaHref = '#',
+    secondaryCtaText,
+    secondaryCtaHref = '#',
     blendImage,
     blendImageAlt = '',
 }: PageHeroBannerProps) {
@@ -166,31 +172,41 @@ export function PageHeroBanner({
 
                 {/* Optional description */}
                 {description && (
-                    <motion.p
+                    <motion.div
                         initial={{ opacity: 0, y: 28 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.32 }}
                         className="mt-3 max-w-lg text-sm text-foreground/60 leading-relaxed sm:text-base"
                     >
                         {description}
-                    </motion.p>
+                    </motion.div>
                 )}
 
-                {/* CTA button */}
-                {ctaText && (
+                {/* CTA buttons */}
+                {(ctaText || secondaryCtaText) && (
                     <motion.div
                         initial={{ opacity: 0, y: 28 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.38 }}
-                        className="mt-8"
+                        className="mt-8 flex flex-wrap items-center gap-4"
                     >
-                        <Link
-                            href={ctaHref}
-                            className="btn-glow group relative inline-flex h-11 items-center justify-center gap-2 rounded-full bg-primary px-8 text-sm font-bold text-primary-foreground shadow-xl shadow-primary/25 transition-all duration-300 hover:scale-105 hover:shadow-primary/40"
-                        >
-                            {ctaText}
-                            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                        </Link>
+                        {ctaText && (
+                            <Link
+                                href={ctaHref}
+                                className="btn-glow group relative inline-flex h-11 items-center justify-center gap-2 rounded-full bg-primary px-8 text-sm font-bold text-primary-foreground shadow-xl shadow-primary/25 transition-all duration-300 hover:scale-105 hover:shadow-primary/40"
+                            >
+                                {ctaText}
+                                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                            </Link>
+                        )}
+                        {secondaryCtaText && (
+                            <Link
+                                href={secondaryCtaHref}
+                                className="group relative inline-flex h-11 items-center justify-center gap-2 rounded-full bg-primary px-8 text-sm font-bold text-primary-foreground shadow-xl shadow-primary/25 transition-all duration-300 hover:scale-105 hover:shadow-primary/40"
+                            >
+                                {secondaryCtaText}
+                            </Link>
+                        )}
                     </motion.div>
                 )}
             </div>

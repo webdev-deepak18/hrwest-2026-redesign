@@ -1,10 +1,33 @@
+import * as React from 'react';
+import { PageHeroBanner } from '@/components/ui/page-hero-banner';
+import { ComingSoonPlaceholder } from '@/components/sections/coming-soon-placeholder';
+
 export default function VolunteerPage() {
     return (
-        <div className="flex flex-col items-center justify-center min-h-[70vh] w-full p-8">
-            <div className="bg-card text-card-foreground shadow-sm border rounded-lg p-12 text-center max-w-2xl w-full">
-                <h1 className="text-4xl font-bold">Volunteer</h1>
-                <p className="mt-4 text-muted-foreground">Placeholder content for the wireframe skeleton.</p>
+        <main className="flex flex-col min-h-screen bg-[#060010]">
+            <PageHeroBanner
+                eyebrow="Join The Team"
+                eyebrowIconName="Users"
+                headline="Volunteer Opportunities at HRWest 2026"
+                tagline="Enjoy a free conference pass!"
+                ctaText="Apply to Volunteer"
+                ctaHref="#apply"
+                blendImage="/images/volunteer_opportunities_hero.png"
+                blendImageAlt="Welcoming volunteer with open arms"
+            />
+
+            <div className="flex flex-col">
+                <ComingSoonPlaceholder
+                    title="Volunteer Roles & Requirements"
+                    description="We are currently outlining the various roles, shift schedules, and responsibilities for our incredible volunteers."
+                />
+                <ComingSoonPlaceholder
+                    title="Volunteer Perks"
+                    description="Details on the exact benefits, including access to sessions, meals, and exclusive networking events, will be announced shortly."
+                    icon="hammer"
+                    className="bg-[#0a0118]"
+                />
             </div>
-        </div>
+        </main>
     );
 }
