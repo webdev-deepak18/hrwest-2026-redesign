@@ -1,10 +1,11 @@
+import { SponsorHeroBanner } from '@/components/sections/sponsor-hero-banner';
+import { SponsorShowcase } from '@/components/sections/sponsor-showcase';
+
 export default function SponsorsProgramPage() {
     return (
-        <div className="flex flex-col items-center justify-center min-h-[70vh] w-full p-8">
-            <div className="bg-card text-card-foreground shadow-sm border rounded-lg p-12 text-center max-w-2xl w-full">
-                <h1 className="text-4xl font-bold">Sponsors</h1>
-                <p className="mt-4 text-muted-foreground">Placeholder content for the wireframe skeleton.</p>
-            </div>
-        </div>
+        <main className="flex min-h-screen w-full flex-col bg-[#060010]">
+            <SponsorHeroBanner />
+            <SponsorShowcase />
+        </main>
     );
 }

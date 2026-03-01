@@ -101,8 +101,14 @@ export function PageHeroBanner({
                         src={blendImage}
                         alt={blendImageAlt}
                         aria-hidden={blendImageAlt === '' ? true : undefined}
-                        className="pointer-events-none absolute right-0 top-0 h-full w-auto max-w-[52%] object-cover object-left select-none"
-                        style={{ mixBlendMode: 'screen' }}
+                        className="pointer-events-none absolute right-0 top-0 h-full w-auto max-w-[52%] object-contain object-right select-none"
+                        style={{
+                            mixBlendMode: 'screen',
+                            maskImage: 'linear-gradient(to left, black 40%, transparent 100%), linear-gradient(to top, black 40%, transparent 100%)',
+                            WebkitMaskImage: 'linear-gradient(to left, black 40%, transparent 100%), linear-gradient(to top, black 40%, transparent 100%)',
+                            maskComposite: 'intersect',
+                            WebkitMaskComposite: 'source-in'
+                        }}
                     />
                     {/* Soft right-edge dissolve */}
                     <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[#060010]/60 to-transparent" />
