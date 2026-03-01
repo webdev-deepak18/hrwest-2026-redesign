@@ -151,9 +151,13 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         const cards = cardsRef.current;
         if (!cards.length) return;
 
+        // CRITICAL: We MUST measure offsets while cards are NOT transformed (un-pinned),
+        // otherwise getBoundingClientRect/offsetTop include the scroll translation.
+        const originalTransforms = cards.map((c) => c.style.transform);
+        cards.forEach((c) => (c.style.transform = 'none'));
+
         if (useWindowScroll) {
-            // getBoundingClientRect + scrollY = documentOffset. Safe here because we're
-            // outside a scroll handler (no Lenis interpolation in flight).
+            // getBoundingClientRect + scrollY = documentOffset.
             cardOffsetsRef.current = cards.map(
                 (c) => c.getBoundingClientRect().top + window.scrollY
             );
@@ -167,6 +171,11 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
             const endEl = scroller?.querySelector('.scroll-stack-end') as HTMLElement | null;
             endOffsetRef.current = endEl ? endEl.offsetTop : 0;
         }
+
+        // Restore transforms immediately after measurement
+        cards.forEach((c, i) => {
+            c.style.transform = originalTransforms[i] || 'translateZ(0)';
+        });
     }, [useWindowScroll]);
 
     const updateCardTransforms = useCallback(
@@ -191,7 +200,10 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
                 const triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
                 const triggerEnd = cardTop - scaleEndPositionPx;
                 const pinStart = triggerStart;
-                const pinEnd = endElementTop - containerHeight / 2;
+
+                // pinEnd should allow enough room for the last card to pin and the user to see the stack.
+                // We base it on the end marker which is at the bottom of the content.
+                const pinEnd = endElementTop - containerHeight * 0.4;
 
                 // Scale progress
                 let scaleProgress = 0;
@@ -297,6 +309,9 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
             }
             card.style.willChange = 'transform, filter';
             card.style.transformOrigin = 'top center';
+            // Explicit z-index ensures later cards (higher index) always paint ON TOP
+            // of earlier ones in the stack — critical for the "last card on top" look.
+            card.style.zIndex = String(i + 1);
             // Initial GPU promotion without preserve-3d
             card.style.transform = 'translateZ(0)';
         });

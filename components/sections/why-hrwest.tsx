@@ -214,7 +214,7 @@ export function WhyHRWest() {
         {/* ScrollStack */}
         <div className="why-hrwest-stack-wrapper">
           <ScrollStack
-            itemDistance={200}
+            itemDistance={400}
             itemStackDistance={28}
             stackPosition="18%"
             scaleEndPosition="10%"
@@ -276,7 +276,7 @@ export function WhyHRWest() {
 
         /* Override default inner padding to fit within the section's container */
         .why-hrwest-scroll-stack .scroll-stack-inner {
-          padding: 10vh 3rem 15rem;
+          padding: 10vh 3rem 5rem;
         }
 
         /* ── Card shell ── */

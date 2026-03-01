@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Calendar, MapPin, Ticket } from 'lucide-react';
 import { BrandMotif } from '@/components/ui/brand-motif';
+import ShinyText from '@/components/ui/ShinyText';
 
 /* ─────────────────────────────────────────────
    Props — keeps the component reusable
@@ -136,7 +137,17 @@ export function Hero({
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
                     className="text-5xl font-black tracking-tighter text-foreground sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl"
                 >
-                    {eventName}
+                    <ShinyText
+                        text={eventName}
+                        speed={4}
+                        delay={1}
+                        color="#ffffff"
+                        shineColor="#c4b5fd"
+                        spread={100}
+                        direction="left"
+                        yoyo={false}
+                        pauseOnHover={false}
+                    />
                 </motion.h1>
 
                 {/* ── Sub-headline (gradient) ── */}
